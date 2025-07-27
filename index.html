@@ -153,32 +153,40 @@
             color: white;
         }
 
-        /* Devices Container */
+        /* Devices Container - COMPLETELY REWORKED */
         .devices-container {
             display: flex;
             justify-content: center;
-            align-items: flex-end;
-            gap: 40px;
+            align-items: center;
             width: 100%;
             max-width: 1200px;
             margin-bottom: 40px;
-            min-height: 650px;
+            min-height: 700px;
             position: relative;
+        }
+        
+        .device-center-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .device-wrapper {
             position: absolute;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(20px) scale(0.98);
             transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
             pointer-events: none;
-            left: 50%;
-            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
         }
         
         .device-wrapper.active {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0) scale(1);
             pointer-events: all;
         }
 
@@ -190,7 +198,7 @@
             background: #333;
             border-radius: 20px;
             padding: 40px 30px 30px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
         
         .macbook-frame::after {
@@ -212,7 +220,7 @@
             background: #333;
             border-radius: 40px;
             padding: 90px 20px 70px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
         
         .iphone-frame::before {
@@ -259,6 +267,12 @@
             background: #eee;
             border-radius: 5px;
             margin-bottom: 15px;
+            animation: blobPulse 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes blobPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
         
         .title-blob {
@@ -292,6 +306,7 @@
             right: 10px;
             font-size: 12px;
             color: #999;
+            z-index: 10;
         }
         
         iframe {
@@ -299,6 +314,7 @@
             width: 100%;
             height: 100%;
             background: transparent;
+            border-radius: 4px;
         }
         
         /* Brand-specific backgrounds */
@@ -307,15 +323,15 @@
             color: #333;
         }
         body.brand-2-active { 
-            background: white;
+            background: linear-gradient(135deg, #ff9900, #ffcc66);
             color: #333;
         }
         body.brand-3-active { 
-            background: white;
-            color: #333;
+            background: linear-gradient(135deg, #f40009, #d6000c);
+            color: white;
         }
         body.brand-4-active { 
-            background: linear-gradient(135deg, #637e8f, #122d3e);
+            background: linear-gradient(135deg, #000000, #333333);
             color: white;
         }
         body.brand-5-active { 
@@ -331,9 +347,9 @@
     <div class="control-container">
         <div class="control-title">BRANDS</div>
         <div class="brands-selector brand-1-active">
-            <button class="brand-btn" data-animation="https://corenelson.github.io/META-ANIMATION/" data-brand="brand-1">META</button>
+            <button class="brand-btn active" data-animation="https://corenelson.github.io/META-Animation/" data-brand="brand-1">META</button>
             <button class="brand-btn" data-animation="https://corenelson.github.io/AMAZON-ANIMATION/" data-brand="brand-2">AMAZON</button>
-            <button class="brand-btn" data-animation="https://corenelson.github.io/COCACOLA-ANIMATION/" data-brand="brand-3">COCA-COLA</button>
+            <button class="brand-btn" data-animation="https://corenelson.github.io/COCACOLA-Animation/" data-brand="brand-3">COCA-COLA</button>
             <button class="brand-btn" data-animation="https://corenelson.github.io/ESPN-ANIMATION/" data-brand="brand-4">ESPN</button>
             <button class="brand-btn" data-animation="https://corenelson.github.io/HBOMAX-ANIMATION/" data-brand="brand-5">HBO MAX</button>
         </div>
@@ -348,66 +364,72 @@
         </div>
     </div>
     
-    <!-- Devices Container -->
+    <!-- Devices Container - Reworked structure -->
     <div class="devices-container">
-        <!-- Mobile View -->
-        <div class="iphone-frame device-wrapper mobile-wrapper active">
-            <div class="fake-website">
-                <div class="fake-content">
-                    <div class="blob title-blob"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                </div>
-                <div class="ad-container">
-                    <span class="ad-label">ADVERTISEMENT</span>
-                    <iframe src="https://corenelson.github.io/META-ANIMATION/" title="Animation Demo"></iframe>
+        <div class="device-center-wrapper">
+            <!-- Mobile View -->
+            <div class="device-wrapper mobile-wrapper active">
+                <div class="iphone-frame">
+                    <div class="fake-website">
+                        <div class="fake-content">
+                            <div class="blob title-blob"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                        </div>
+                        <div class="ad-container">
+                            <span class="ad-label">ADVERTISEMENT</span>
+                            <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Desktop View -->
-        <div class="macbook-frame device-wrapper desktop-wrapper">
-            <div class="fake-website">
-                <div class="fake-content">
-                    <div class="blob title-blob"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                    <div class="blob text-blob medium"></div>
-                    <div class="blob text-blob short"></div>
-                    <div class="blob text-blob"></div>
-                </div>
-                <div class="ad-container">
-                    <span class="ad-label">ADVERTISEMENT</span>
-                    <iframe src="https://corenelson.github.io/META-ANIMATION/" title="Animation Demo"></iframe>
+            
+            <!-- Desktop View -->
+            <div class="device-wrapper desktop-wrapper">
+                <div class="macbook-frame">
+                    <div class="fake-website">
+                        <div class="fake-content">
+                            <div class="blob title-blob"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                            <div class="blob text-blob medium"></div>
+                            <div class="blob text-blob short"></div>
+                            <div class="blob text-blob"></div>
+                        </div>
+                        <div class="ad-container">
+                            <span class="ad-label">ADVERTISEMENT</span>
+                            <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -426,7 +448,7 @@
             const body = document.body;
             
             // Current animation URL
-            let currentAnimation = "https://corenelson.github.io/META-ANIMATION/";
+            let currentAnimation = "https://corenelson.github.io/META-Animation/";
             let currentBrand = "brand-1";
             
             // Check if mobile device
