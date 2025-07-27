@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Animation by @corenelson</title>
+    <title>INTERACTIVE ADVERTISEMENTS BY @CORENELSON</title>
     <style>
-        /* Critical CSS - Loads immediately */
+        /* Base Styles */
         body {
             font-family: 'Arial Black', Arial, sans-serif;
-            background: linear-gradient(135deg, #e1e6fa, #f9e8ee);
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -16,27 +15,145 @@
             flex-direction: column;
             align-items: center;
             color: #333;
+            background: linear-gradient(135deg, #e1e6fa, #f9e8ee);
+            transition: background 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+            overflow-x: hidden;
         }
+
         h1 {
             font-weight: 800;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
+            font-size: 1.8rem;
         }
-        .view-switcher {
-            display: flex;
-            justify-content: center;
+
+        /* Control Containers */
+        .control-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            gap: 15px;
+            width: 100%;
+            max-width: 800px;
         }
-        .view-switcher button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 30px;
+        
+        .control-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        /* Brands Selector */
+        .brands-selector {
+            display: flex;
+            position: relative;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .brands-selector::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(20% - 6px);
+            height: calc(100% - 8px);
             background: #333;
-            color: white;
-            font-family: inherit;
-            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 0;
         }
+        
+        .brand-btn {
+            position: relative;
+            padding: 8px 5px;
+            border: none;
+            background: transparent;
+            color: #777;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 1;
+            text-align: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .brand-btn.active {
+            color: white;
+        }
+        
+        /* Position the sliding background based on active brand */
+        .brands-selector.brand-1-active::before { transform: translateX(0); width: calc(20% - 6px); }
+        .brands-selector.brand-2-active::before { transform: translateX(100%); width: calc(20% - 6px); }
+        .brands-selector.brand-3-active::before { transform: translateX(200%); width: calc(20% - 6px); }
+        .brands-selector.brand-4-active::before { transform: translateX(300%); width: calc(20% - 6px); }
+        .brands-selector.brand-5-active::before { transform: translateX(400%); width: calc(20% - 6px); }
+
+        /* Devices Switcher */
+        .devices-switcher {
+            display: flex;
+            position: relative;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 4px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .devices-switcher::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #333;
+            border-radius: 6px;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 0;
+        }
+        
+        .devices-switcher.desktop-active::before {
+            transform: translateX(100%);
+        }
+        
+        .devices-button {
+            position: relative;
+            padding: 8px 25px;
+            border: none;
+            background: transparent;
+            color: #777;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 1;
+            flex: 1;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .devices-button.active {
+            color: white;
+        }
+
+        /* Devices Container */
         .devices-container {
             display: flex;
             justify-content: center;
@@ -46,138 +163,195 @@
             max-width: 1200px;
             margin-bottom: 40px;
             min-height: 650px;
+            position: relative;
         }
+        
         .device-wrapper {
-            display: none;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            pointer-events: none;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .device-wrapper.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: all;
         }
 
-        /* Non-critical CSS - Loads after content */
-        <noscript id="deferred-styles">
-            .view-switcher button {
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            }
-            .view-switcher button.active {
-                background: #555;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            }
-            .macbook-frame, .iphone-frame {
-                position: relative;
-                background: #333;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            }
-            .macbook-frame {
-                width: 800px;
-                height: 500px;
-                border-radius: 20px;
-                padding: 40px 30px 30px 30px;
-            }
-            .macbook-frame::after {
-                content: '';
-                position: absolute;
-                width: 14px;
-                height: 14px;
-                background: #aaa;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 50%;
-            }
-            .iphone-frame {
-                width: 320px;
-                height: 600px;
-                border-radius: 40px;
-                padding: 90px 20px 70px 20px;
-            }
-            .iphone-frame::before {
-                content: '';
-                position: absolute;
-                width: 120px;
-                height: 20px;
-                background: white;
-                top: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 10px;
-            }
-            .iphone-frame::after {
-                content: '';
-                position: absolute;
-                width: 40px;
-                height: 40px;
-                border: 3px solid white;
-                bottom: 15px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 50%;
-            }
-            .fake-website {
-                width: 100%;
-                height: 100%;
-                background: white;
-                overflow-y: auto;
-                position: relative;
-                border-radius: 5px;
-                box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-            }
-            .fake-content {
-                padding: 20px;
-                min-height: calc(100% - 200px);
-            }
-            .blob {
-                background: #eee;
-                border-radius: 5px;
-                margin-bottom: 15px;
-            }
-            .title-blob {
-                height: 30px;
-                width: 70%;
-                margin-bottom: 25px;
-            }
-            .text-blob {
-                height: 15px;
-                width: 100%;
-            }
-            .text-blob.short { width: 85%; }
-            .text-blob.medium { width: 95%; }
-            .ad-container {
-                position: sticky;
-                bottom: 0;
-                width: 100%;
-                height: 200px;
-                background: transparent;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .ad-label {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                font-size: 12px;
-                color: #999;
-            }
-            iframe {
-                border: none;
-                width: 100%;
-                height: 100%;
-                background: transparent;
-            }
-        </noscript>
+        /* Device Frames */
+        .macbook-frame {
+            width: 800px;
+            height: 500px;
+            position: relative;
+            background: #333;
+            border-radius: 20px;
+            padding: 40px 30px 30px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .macbook-frame::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #aaa;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+        
+        .iphone-frame {
+            width: 320px;
+            height: 600px;
+            position: relative;
+            background: #333;
+            border-radius: 40px;
+            padding: 90px 20px 70px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .iphone-frame::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 20px;
+            background: white;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+        
+        .iphone-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid white;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+        
+        /* Fake Website Content */
+        .fake-website {
+            width: 100%;
+            height: 100%;
+            background: white;
+            overflow-y: auto;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+        
+        .fake-content {
+            padding: 20px;
+            min-height: calc(100% - 200px);
+        }
+        
+        .blob {
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .title-blob {
+            height: 30px;
+            width: 70%;
+            margin-bottom: 25px;
+        }
+        
+        .text-blob {
+            height: 15px;
+            width: 100%;
+        }
+        
+        .text-blob.short { width: 85%; }
+        .text-blob.medium { width: 95%; }
+        
+        .ad-container {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+        
+        /* Brand-specific backgrounds */
+        body.brand-1-active { 
+            background: linear-gradient(135deg, #e1e6fa, #f9e8ee);
+            color: #333;
+        }
+        body.brand-2-active { 
+            background: white;
+            color: #333;
+        }
+        body.brand-3-active { 
+            background: white;
+            color: #333;
+        }
+        body.brand-4-active { 
+            background: linear-gradient(135deg, #637e8f, #122d3e);
+            color: white;
+        }
+        body.brand-5-active { 
+            background: linear-gradient(135deg, #9d3cf1, #4442ce);
+            color: white;
+        }
     </style>
 </head>
-<body>
-    <h1>HTML Animation by @corenelson</h1>
+<body class="brand-1-active">
+    <h1>INTERACTIVE ADVERTISEMENTS BY @CORENELSON</h1>
     
-    <div class="view-switcher">
-        <button class="view-button mobile-button" data-view="mobile">Mobile View</button>
-        <button class="view-button desktop-button" data-view="desktop">Desktop View</button>
+    <!-- Brands Selector Container -->
+    <div class="control-container">
+        <div class="control-title">BRANDS</div>
+        <div class="brands-selector brand-1-active">
+            <button class="brand-btn" data-animation="https://corenelson.github.io/META-ANIMATION/" data-brand="brand-1">META</button>
+            <button class="brand-btn" data-animation="https://corenelson.github.io/AMAZON-ANIMATION/" data-brand="brand-2">AMAZON</button>
+            <button class="brand-btn" data-animation="https://corenelson.github.io/COCACOLA-ANIMATION/" data-brand="brand-3">COCA-COLA</button>
+            <button class="brand-btn" data-animation="https://corenelson.github.io/ESPN-ANIMATION/" data-brand="brand-4">ESPN</button>
+            <button class="brand-btn" data-animation="https://corenelson.github.io/HBOMAX-ANIMATION/" data-brand="brand-5">HBO MAX</button>
+        </div>
     </div>
     
+    <!-- Devices Switcher Container -->
+    <div class="control-container">
+        <div class="control-title">DEVICES</div>
+        <div class="devices-switcher mobile-active">
+            <button class="devices-button mobile-button active" data-view="mobile">MOBILE</button>
+            <button class="devices-button desktop-button" data-view="desktop">DESKTOP</button>
+        </div>
+    </div>
+    
+    <!-- Devices Container -->
     <div class="devices-container">
         <!-- Mobile View -->
-        <div class="iphone-frame device-wrapper mobile-wrapper">
+        <div class="iphone-frame device-wrapper mobile-wrapper active">
             <div class="fake-website">
                 <div class="fake-content">
                     <div class="blob title-blob"></div>
@@ -204,8 +378,8 @@
                     <div class="blob text-blob"></div>
                 </div>
                 <div class="ad-container">
-                    <span class="ad-label">Advertisement</span>
-                    <iframe data-src="https://corenelson.github.io/META-Animation/" title="Animation Demo" loading="lazy"></iframe>
+                    <span class="ad-label">ADVERTISEMENT</span>
+                    <iframe src="https://corenelson.github.io/META-ANIMATION/" title="Animation Demo"></iframe>
                 </div>
             </div>
         </div>
@@ -232,32 +406,28 @@
                     <div class="blob text-blob"></div>
                 </div>
                 <div class="ad-container">
-                    <span class="ad-label">Advertisement</span>
-                    <iframe data-src="https://corenelson.github.io/META-Animation/" title="Animation Demo" loading="lazy"></iframe>
+                    <span class="ad-label">ADVERTISEMENT</span>
+                    <iframe src="https://corenelson.github.io/META-ANIMATION/" title="Animation Demo"></iframe>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Load non-critical CSS without blocking render
-        var loadDeferredStyles = function() {
-            var addStylesNode = document.getElementById("deferred-styles");
-            var replacement = document.createElement("div");
-            replacement.innerHTML = addStylesNode.textContent;
-            document.body.appendChild(replacement);
-            addStylesNode.parentElement.removeChild(addStylesNode);
-        };
-        var raf = requestAnimationFrame || function(cb) { setTimeout(cb, 0) };
-        raf(function() {
-            window.setTimeout(loadDeferredStyles, 0);
-        });
-
-        // Device detection and view switching
         document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.view-button');
+            // Elements
+            const brandButtons = document.querySelectorAll('.brand-btn');
+            const devicesButtons = document.querySelectorAll('.devices-button');
+            const brandsSelector = document.querySelector('.brands-selector');
+            const devicesSwitcher = document.querySelector('.devices-switcher');
             const mobileWrapper = document.querySelector('.mobile-wrapper');
             const desktopWrapper = document.querySelector('.desktop-wrapper');
+            const iframes = document.querySelectorAll('iframe');
+            const body = document.body;
+            
+            // Current animation URL
+            let currentAnimation = "https://corenelson.github.io/META-ANIMATION/";
+            let currentBrand = "brand-1";
             
             // Check if mobile device
             function isMobileDevice() {
@@ -266,41 +436,79 @@
                        (window.innerWidth <= 768);
             }
             
-            function loadIframe(wrapper) {
-                const iframe = wrapper.querySelector('iframe');
-                if (iframe && iframe.dataset.src) {
-                    iframe.src = iframe.dataset.src;
-                }
+            // Load animation into iframes
+            function loadAnimation(url, brand) {
+                iframes.forEach(iframe => {
+                    iframe.src = url;
+                });
+                currentAnimation = url;
+                currentBrand = brand;
+                
+                // Update body class for background transition
+                body.className = '';
+                body.classList.add(`${brand}-active`);
+                
+                // Update brands selector sliding background
+                brandsSelector.className = 'brands-selector';
+                brandsSelector.classList.add(`${brand}-active`);
             }
-
-            function switchView(view, updateButtons = true) {
-                if (updateButtons) {
-                    buttons.forEach(button => {
-                        button.classList.toggle('active', button.dataset.view === view);
-                    });
+            
+            // Switch between mobile/desktop views
+            function switchView(view) {
+                if (view === 'mobile') {
+                    devicesSwitcher.classList.remove('desktop-active');
+                    devicesSwitcher.classList.add('mobile-active');
+                    
+                    // Smooth transition
+                    desktopWrapper.classList.remove('active');
+                    setTimeout(() => {
+                        mobileWrapper.classList.add('active');
+                    }, 10);
+                } else {
+                    devicesSwitcher.classList.remove('mobile-active');
+                    devicesSwitcher.classList.add('desktop-active');
+                    
+                    // Smooth transition
+                    mobileWrapper.classList.remove('active');
+                    setTimeout(() => {
+                        desktopWrapper.classList.add('active');
+                    }, 10);
                 }
                 
-                if (view === 'mobile') {
-                    mobileWrapper.style.display = 'block';
-                    desktopWrapper.style.display = 'none';
-                    loadIframe(mobileWrapper);
-                } else {
-                    mobileWrapper.style.display = 'none';
-                    desktopWrapper.style.display = 'block';
-                    loadIframe(desktopWrapper);
-                }
+                // Update button states
+                devicesButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.view === view);
+                });
             }
             
             // Set initial view based on device
             const initialView = isMobileDevice() ? 'mobile' : 'desktop';
-            switchView(initialView, true);
+            switchView(initialView);
             
-            // Set the correct button as active
-            document.querySelector(`.${initialView}-button`).classList.add('active');
-            
-            // Add click events to buttons
-            buttons.forEach(button => {
+            // Brand button clicks
+            brandButtons.forEach(button => {
                 button.addEventListener('click', function() {
+                    const animationUrl = this.getAttribute('data-animation');
+                    const brand = this.getAttribute('data-brand');
+                    
+                    // Update button states
+                    brandButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Load new animation and update background
+                    loadAnimation(animationUrl, brand);
+                });
+            });
+            
+            // Devices switcher button clicks
+            devicesButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Button press animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                    
                     switchView(this.dataset.view);
                 });
             });
