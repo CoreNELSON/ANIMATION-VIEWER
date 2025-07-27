@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Animation by @corenelson</title>
+    <style>
+        /* Critical CSS - Loads immediately */
+        body {
+            font-family: 'Arial Black', Arial, sans-serif;
+            background: linear-gradient(135deg, #e1e6fa, #f9e8ee);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        h1 {
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .view-switcher {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        .view-switcher button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            background: #333;
+            color: white;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .devices-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 40px;
+            min-height: 650px;
+        }
+        .device-wrapper {
+            display: none;
+        }
+
+        /* Non-critical CSS - Loads after content */
+        <noscript id="deferred-styles">
+            .view-switcher button {
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            .view-switcher button.active {
+                background: #555;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            }
+            .macbook-frame, .iphone-frame {
+                position: relative;
+                background: #333;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+            .macbook-frame {
+                width: 800px;
+                height: 500px;
+                border-radius: 20px;
+                padding: 40px 30px 30px 30px;
+            }
+            .macbook-frame::after {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 14px;
+                background: #aaa;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 50%;
+            }
+            .iphone-frame {
+                width: 320px;
+                height: 600px;
+                border-radius: 40px;
+                padding: 90px 20px 70px 20px;
+            }
+            .iphone-frame::before {
+                content: '';
+                position: absolute;
+                width: 120px;
+                height: 20px;
+                background: white;
+                top: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 10px;
+            }
+            .iphone-frame::after {
+                content: '';
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border: 3px solid white;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 50%;
+            }
+            .fake-website {
+                width: 100%;
+                height: 100%;
+                background: white;
+                overflow-y: auto;
+                position: relative;
+                border-radius: 5px;
+                box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+            }
+            .fake-content {
+                padding: 20px;
+                min-height: calc(100% - 200px);
+            }
+            .blob {
+                background: #eee;
+                border-radius: 5px;
+                margin-bottom: 15px;
+            }
+            .title-blob {
+                height: 30px;
+                width: 70%;
+                margin-bottom: 25px;
+            }
+            .text-blob {
+                height: 15px;
+                width: 100%;
+            }
+            .text-blob.short { width: 85%; }
+            .text-blob.medium { width: 95%; }
+            .ad-container {
+                position: sticky;
+                bottom: 0;
+                width: 100%;
+                height: 200px;
+                background: transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .ad-label {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                color: #999;
+            }
+            iframe {
+                border: none;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+            }
+        </noscript>
+    </style>
+</head>
+<body>
+    <h1>HTML Animation by @corenelson</h1>
+    
+    <div class="view-switcher">
+        <button class="view-button mobile-button" data-view="mobile">Mobile View</button>
+        <button class="view-button desktop-button" data-view="desktop">Desktop View</button>
+    </div>
+    
+    <div class="devices-container">
+        <!-- Mobile View -->
+        <div class="iphone-frame device-wrapper mobile-wrapper">
+            <div class="fake-website">
+                <div class="fake-content">
+                    <div class="blob title-blob"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                </div>
+                <div class="ad-container">
+                    <span class="ad-label">Advertisement</span>
+                    <iframe data-src="https://corenelson.github.io/META-Animation/" title="Animation Demo" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desktop View -->
+        <div class="macbook-frame device-wrapper desktop-wrapper">
+            <div class="fake-website">
+                <div class="fake-content">
+                    <div class="blob title-blob"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                    <div class="blob text-blob medium"></div>
+                    <div class="blob text-blob short"></div>
+                    <div class="blob text-blob"></div>
+                </div>
+                <div class="ad-container">
+                    <span class="ad-label">Advertisement</span>
+                    <iframe data-src="https://corenelson.github.io/META-Animation/" title="Animation Demo" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load non-critical CSS without blocking render
+        var loadDeferredStyles = function() {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement);
+            addStylesNode.parentElement.removeChild(addStylesNode);
+        };
+        var raf = requestAnimationFrame || function(cb) { setTimeout(cb, 0) };
+        raf(function() {
+            window.setTimeout(loadDeferredStyles, 0);
+        });
+
+        // Device detection and view switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.view-button');
+            const mobileWrapper = document.querySelector('.mobile-wrapper');
+            const desktopWrapper = document.querySelector('.desktop-wrapper');
+            
+            // Check if mobile device
+            function isMobileDevice() {
+                return (typeof window.orientation !== "undefined") || 
+                       (navigator.userAgent.indexOf('IEMobile') !== -1) ||
+                       (window.innerWidth <= 768);
+            }
+            
+            function loadIframe(wrapper) {
+                const iframe = wrapper.querySelector('iframe');
+                if (iframe && iframe.dataset.src) {
+                    iframe.src = iframe.dataset.src;
+                }
+            }
+
+            function switchView(view, updateButtons = true) {
+                if (updateButtons) {
+                    buttons.forEach(button => {
+                        button.classList.toggle('active', button.dataset.view === view);
+                    });
+                }
+                
+                if (view === 'mobile') {
+                    mobileWrapper.style.display = 'block';
+                    desktopWrapper.style.display = 'none';
+                    loadIframe(mobileWrapper);
+                } else {
+                    mobileWrapper.style.display = 'none';
+                    desktopWrapper.style.display = 'block';
+                    loadIframe(desktopWrapper);
+                }
+            }
+            
+            // Set initial view based on device
+            const initialView = isMobileDevice() ? 'mobile' : 'desktop';
+            switchView(initialView, true);
+            
+            // Set the correct button as active
+            document.querySelector(`.${initialView}-button`).classList.add('active');
+            
+            // Add click events to buttons
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    switchView(this.dataset.view);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
