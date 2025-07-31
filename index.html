@@ -194,6 +194,8 @@
             flex: 1;
             min-height: 0;
             padding: 30px 0;
+            align-items: center;
+            justify-content: center;
         }
         
         .device-center-wrapper {
@@ -208,16 +210,16 @@
         .device-wrapper {
             position: absolute;
             left: 50%;
-            top: 50%;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.98);
+            transform: translateX(-50%) scale(0.98);
             transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
             pointer-events: none;
+            bottom: 30px;
         }
         
         .device-wrapper.active {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translateX(-50%) scale(1);
             pointer-events: all;
         }
 
@@ -412,33 +414,36 @@
                 padding: 20px 0;
             }
             
+            /* Double the size of device frames on mobile */
             .macbook-frame {
                 width: 95%;
-                height: 380px;
-                padding: 30px 20px 25px 20px;
+                height: 760px; /* Increased from 380px */
+                padding: 60px 40px 50px 40px; /* Doubled padding */
+                transform: scale(1); /* Remove any scaling */
             }
             
             .iphone-frame {
-                width: 300px;
-                height: 550px;
-                padding: 80px 18px 60px 18px;
+                width: 600px; /* Increased from 300px */
+                height: 1100px; /* Increased from 550px */
+                padding: 160px 36px 120px 36px; /* Doubled padding */
+                transform: scale(1); /* Remove any scaling */
             }
             
             .fake-content {
-                padding: 15px;
+                padding: 30px; /* Doubled padding */
             }
             
             .ad-container {
-                height: 150px;
+                height: 300px; /* Increased from 150px */
             }
             
             .title-blob {
-                height: 24px;
-                margin-bottom: 15px;
+                height: 48px; /* Increased from 24px */
+                margin-bottom: 30px; /* Doubled margin */
             }
             
             .text-blob {
-                height: 12px;
+                height: 24px; /* Increased from 12px */
             }
         }
         
@@ -454,21 +459,21 @@
             }
             
             .macbook-frame {
-                height: 320px;
-                padding: 25px 15px 20px 15px;
+                height: 640px; /* Increased from 320px */
+                padding: 50px 30px 40px 30px; /* Doubled padding */
             }
             
             .iphone-frame {
-                height: 500px;
-                padding: 70px 15px 50px 15px;
+                height: 1000px; /* Increased from 500px */
+                padding: 140px 30px 100px 30px; /* Doubled padding */
             }
             
             .fake-content {
-                padding: 12px;
+                padding: 24px; /* Doubled padding */
             }
             
             .ad-container {
-                height: 130px;
+                height: 260px; /* Increased from 130px */
             }
         }
     </style>
