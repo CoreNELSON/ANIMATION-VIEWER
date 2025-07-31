@@ -190,7 +190,7 @@
             justify-content: center;
             width: 100%;
             max-width: 1200px;
-            margin: 30px auto;
+            margin: 30px auto 80px; /* Increased bottom margin */
             position: relative;
             min-height: 600px;
         }
@@ -407,38 +407,42 @@
             }
             
             .devices-container {
-                margin: 20px auto;
-                min-height: 500px;
+                margin: 20px auto 60px; /* Increased bottom margin */
+                min-height: 400px;
             }
             
+            /* Scale down device frames to 50% */
             .macbook-frame {
-                width: 95%;
-                max-width: 800px;
-                height: 500px;
-                padding: 40px 30px 30px 30px;
+                width: 400px;
+                height: 250px;
+                padding: 20px 15px 15px 15px;
+                transform: scale(0.5);
+                transform-origin: top center;
             }
             
             .iphone-frame {
-                width: 320px;
-                height: 600px;
-                padding: 90px 20px 70px 20px;
+                width: 160px;
+                height: 300px;
+                padding: 45px 10px 35px 10px;
+                transform: scale(0.5);
+                transform-origin: top center;
             }
             
             .fake-content {
-                padding: 20px;
+                padding: 10px;
             }
             
             .ad-container {
-                height: 200px;
+                height: 100px;
             }
             
             .title-blob {
-                height: 30px;
-                margin-bottom: 25px;
+                height: 15px;
+                margin-bottom: 12px;
             }
             
             .text-blob {
-                height: 15px;
+                height: 8px;
             }
         }
         
@@ -454,21 +458,23 @@
             }
             
             .macbook-frame {
-                height: 400px;
-                padding: 30px 20px 25px 20px;
+                width: 360px;
+                height: 225px;
+                padding: 18px 13px 13px 13px;
             }
             
             .iphone-frame {
-                height: 500px;
-                padding: 70px 15px 50px 15px;
+                width: 140px;
+                height: 262px;
+                padding: 40px 9px 30px 9px;
             }
             
             .fake-content {
-                padding: 15px;
+                padding: 8px;
             }
             
             .ad-container {
-                height: 150px;
+                height: 90px;
             }
         }
     </style>
@@ -530,7 +536,6 @@
                                 <div class="blob text-blob"></div>
                             </div>
                             <div class="ad-container">
-                                <span class="ad-label">ADVERTISEMENT</span>
                                 <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
                             </div>
                         </div>
@@ -560,7 +565,6 @@
                                 <div class="blob text-blob"></div>
                             </div>
                             <div class="ad-container">
-                                <span class="ad-label">ADVERTISEMENT</span>
                                 <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
                             </div>
                         </div>
