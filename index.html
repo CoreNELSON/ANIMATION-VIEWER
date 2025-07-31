@@ -9,7 +9,7 @@
         body {
             font-family: 'Arial Black', Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,26 +22,26 @@
 
         h1 {
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
         /* Control Containers */
         .control-container {
             background: white;
             border-radius: 10px;
-            padding: 15px;
+            padding: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             width: 100%;
             max-width: 800px;
         }
         
         .control-title {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -64,8 +64,6 @@
             content: '';
             position: absolute;
             top: 4px;
-            left: 4px;
-            width: calc(20% - 6px);
             height: calc(100% - 8px);
             background: #333;
             border-radius: 6px;
@@ -75,7 +73,7 @@
         
         .brand-btn {
             position: relative;
-            padding: 8px 5px;
+            padding: 10px 5px;
             border: none;
             background: transparent;
             color: #777;
@@ -85,13 +83,14 @@
             transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
             z-index: 1;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             flex: 1;
-            min-width: 100px;
+            min-width: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 40px;
         }
         
         .brand-btn.active {
@@ -99,11 +98,26 @@
         }
         
         /* Position the sliding background based on active brand */
-        .brands-selector.brand-1-active::before { transform: translateX(0); width: calc(20% - 6px); }
-        .brands-selector.brand-2-active::before { transform: translateX(100%); width: calc(20% - 6px); }
-        .brands-selector.brand-3-active::before { transform: translateX(200%); width: calc(20% - 6px); }
-        .brands-selector.brand-4-active::before { transform: translateX(300%); width: calc(20% - 6px); }
-        .brands-selector.brand-5-active::before { transform: translateX(400%); width: calc(20% - 6px); }
+        .brands-selector.brand-1-active::before { 
+            left: 4px;
+            width: calc(20% - 6px); 
+        }
+        .brands-selector.brand-2-active::before { 
+            left: calc(20% + 4px);
+            width: calc(20% - 6px); 
+        }
+        .brands-selector.brand-3-active::before { 
+            left: calc(40% + 4px);
+            width: calc(20% - 6px); 
+        }
+        .brands-selector.brand-4-active::before { 
+            left: calc(60% + 4px);
+            width: calc(20% - 6px); 
+        }
+        .brands-selector.brand-5-active::before { 
+            left: calc(80% + 4px);
+            width: calc(20% - 6px); 
+        }
 
         /* Devices Switcher */
         .devices-switcher {
@@ -120,22 +134,25 @@
             content: '';
             position: absolute;
             top: 4px;
-            left: 4px;
-            width: calc(50% - 4px);
             height: calc(100% - 8px);
             background: #333;
             border-radius: 6px;
             transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
             z-index: 0;
+            width: calc(50% - 4px);
+        }
+        
+        .devices-switcher.mobile-active::before {
+            left: 4px;
         }
         
         .devices-switcher.desktop-active::before {
-            transform: translateX(100%);
+            left: calc(50% + 4px);
         }
         
         .devices-button {
             position: relative;
-            padding: 8px 25px;
+            padding: 12px 20px;
             border: none;
             background: transparent;
             color: #777;
@@ -147,21 +164,22 @@
             flex: 1;
             text-align: center;
             text-transform: uppercase;
+            font-size: 13px;
         }
         
         .devices-button.active {
             color: white;
         }
 
-        /* Devices Container - Added top margin for spacing */
+        /* Devices Container - UPDATED with 120px spacing */
         .devices-container {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
             max-width: 1200px;
-            margin: 30px 0 40px; /* Added top margin for spacing */
-            min-height: 700px;
+            margin: 120px 0 30px; /* Increased top margin to 120px */
+            min-height: 500px;
             position: relative;
         }
         
@@ -177,7 +195,7 @@
         .device-wrapper {
             position: absolute;
             opacity: 0;
-            transform: translateY(20px) scale(0.98);
+            transform: translateY(15px) scale(0.98);
             transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
             pointer-events: none;
             display: flex;
@@ -267,7 +285,7 @@
             background: #eee;
             border-radius: 5px;
             margin-bottom: 15px;
-            animation: blobPulse 1.5s infinite ease-in-out;
+            animation: blobPulse 1.8s infinite ease-in-out;
         }
         
         @keyframes blobPulse {
@@ -338,6 +356,109 @@
             background: linear-gradient(135deg, #9d3cf1, #4442ce);
             color: white;
         }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+            
+            .control-container {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .control-title {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+            
+            /* Brand buttons - mobile adjustments */
+            .brands-selector {
+                gap: 4px;
+                padding: 3px;
+            }
+            
+            .brand-btn {
+                font-size: 10px;
+                padding: 8px 3px;
+                min-height: 36px;
+            }
+            
+            .devices-button {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .devices-container {
+                margin: 120px 0 20px; /* Maintained 120px spacing on mobile */
+                min-height: 400px;
+            }
+            
+            .macbook-frame {
+                width: 95%;
+                height: 380px;
+                padding: 30px 20px 25px 20px;
+            }
+            
+            .iphone-frame {
+                width: 300px;
+                height: 550px;
+                padding: 80px 18px 60px 18px;
+            }
+            
+            .fake-content {
+                padding: 15px;
+            }
+            
+            .ad-container {
+                height: 150px;
+            }
+            
+            .title-blob {
+                height: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .text-blob {
+                height: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .brand-btn {
+                font-size: 9px;
+                min-height: 32px;
+            }
+            
+            .devices-button {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+            
+            .macbook-frame {
+                height: 320px;
+                padding: 25px 15px 20px 15px;
+            }
+            
+            .iphone-frame {
+                height: 500px;
+                padding: 70px 15px 50px 15px;
+            }
+            
+            .fake-content {
+                padding: 12px;
+            }
+            
+            .ad-container {
+                height: 130px;
+            }
+        }
     </style>
 </head>
 <body class="brand-1-active">
@@ -364,7 +485,7 @@
         </div>
     </div>
     
-    <!-- Devices Container - Now with added top margin -->
+    <!-- Devices Container -->
     <div class="devices-container">
         <div class="device-center-wrapper">
             <!-- Mobile View -->
@@ -396,6 +517,7 @@
                             <div class="blob text-blob"></div>
                         </div>
                         <div class="ad-container">
+                            <span class="ad-label">ADVERTISEMENT</span>
                             <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
                         </div>
                     </div>
@@ -425,6 +547,7 @@
                             <div class="blob text-blob"></div>
                         </div>
                         <div class="ad-container">
+                            <span class="ad-label">ADVERTISEMENT</span>
                             <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
                         </div>
                     </div>
