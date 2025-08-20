@@ -12,6 +12,7 @@
             width: 100%;
             height: 100%;
             font-family: 'Arial Black', Arial, sans-serif;
+            overflow-x: hidden;
         }
         
         body {
@@ -285,11 +286,15 @@
             position: relative;
             border-radius: 5px;
             box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
         
         .fake-content {
             padding: 20px;
-            min-height: calc(100% - 200px);
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto; /* Enable scrolling for content */
         }
         
         .blob {
@@ -319,14 +324,16 @@
         .text-blob.medium { width: 95%; }
         
         .ad-container {
-            position: sticky;
-            bottom: 0;
             width: 100%;
             height: 200px;
             background: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: sticky; /* Changed to sticky */
+            bottom: 0; /* Fixed at the bottom */
+            flex-shrink: 0;
+            z-index: 20; /* Ensure it stays above content */
         }
         
         .ad-label {
@@ -344,6 +351,8 @@
             height: 100%;
             background: transparent;
             border-radius: 4px;
+            overflow: hidden !important;
+            display: block;
         }
         
         /* Brand-specific backgrounds - Fixed */
@@ -367,8 +376,8 @@
             background: linear-gradient(135deg, #9d3cf1, #4442ce) fixed;
             background-size: cover;
         }
-        
-        /* Mobile Responsiveness */
+
+        /* Mobile Responsiveness - Final iframe position */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -389,7 +398,6 @@
                 margin-bottom: 10px;
             }
             
-            /* Brand buttons - mobile adjustments */
             .brands-selector {
                 gap: 4px;
                 padding: 3px;
@@ -411,33 +419,44 @@
                 min-height: 500px;
             }
             
+            .device-wrapper {
+                transform-origin: top center;
+            }
+            
+            .mobile-wrapper.active {
+                transform: scale(0.65);
+            }
+            
+            .desktop-wrapper.active {
+                transform: scale(0.7);
+            }
+            
+            .macbook-frame,
+            .iphone-frame {
+                transform: none !important;
+            }
+            
+            /* Final iframe position adjustments */
             .macbook-frame {
-                width: 95%;
-                height: 380px;
-                padding: 30px 20px 25px 20px;
+                padding: 40px 30px 22px 30px; /* Reduced bottom padding */
             }
             
             .iphone-frame {
-                width: 300px;
-                height: 550px;
-                padding: 80px 18px 60px 18px;
+                padding: 90px 20px 58px 20px; /* Reduced bottom padding */
             }
             
             .fake-content {
-                padding: 15px;
+                padding-bottom: 3px; /* Reduced padding */
             }
             
             .ad-container {
-                height: 150px;
+                height: 195px; /* Increased height for better fit */
+                min-height: 195px;
+                padding-bottom: 2px; /* Fine-tuned positioning */
             }
             
-            .title-blob {
-                height: 24px;
-                margin-bottom: 15px;
-            }
-            
-            .text-blob {
-                height: 12px;
+            .ad-container iframe {
+                height: calc(100% - 2px); /* Precise height adjustment */
             }
         }
         
@@ -452,29 +471,33 @@
                 font-size: 11px;
             }
             
+            .mobile-wrapper.active {
+                transform: scale(0.55);
+            }
+            
+            .desktop-wrapper.active {
+                transform: scale(0.6);
+            }
+            
+            /* Further adjustments for very small screens */
             .macbook-frame {
-                height: 320px;
-                padding: 25px 15px 20px 15px;
+                padding: 40px 25px 18px 25px;
             }
             
             .iphone-frame {
-                height: 500px;
-                padding: 70px 15px 50px 15px;
-            }
-            
-            .fake-content {
-                padding: 12px;
+                padding: 85px 15px 53px 15px;
             }
             
             .ad-container {
-                height: 130px;
+                height: 175px;
+                min-height: 175px;
             }
         }
     </style>
 </head>
 <body class="brand-1-active">
     <div class="content-wrapper">
-        <h1>INTERACTIVE ADVERTISEMENTS BY @CORENELSON</h1>
+        <h1>INTERACTIVE S BY @CORENELSON</h1>
         
         <!-- Brands Selector Container -->
         <div class="control-container">
@@ -529,7 +552,7 @@
                                 <div class="blob text-blob"></div>
                             </div>
                             <div class="ad-container">
-                                <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
+                                <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo" scrolling="no"></iframe>
                             </div>
                         </div>
                     </div>
@@ -558,7 +581,7 @@
                                 <div class="blob text-blob"></div>
                             </div>
                             <div class="ad-container">
-                                <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo"></iframe>
+                                <iframe src="https://corenelson.github.io/META-Animation/" title="Animation Demo" scrolling="no"></iframe>
                             </div>
                         </div>
                     </div>
